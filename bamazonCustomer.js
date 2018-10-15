@@ -19,11 +19,11 @@ inquirer.prompt([
 
     if (user.id === "") {
 
-        console.log("==============================================");
+        console.log("\n==============================================\n");
         console.log("You want to buy " + user.name);
         console.log("There are enough left!")
-        console.log("You buy " + user.name);
-        console.log("==============================================");
+        console.log("\nYou buy " + user.name);
+        console.log("\n==============================================\n");
     }
  else {
         console.log("Insufficient quality!")
