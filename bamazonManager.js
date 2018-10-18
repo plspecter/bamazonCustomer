@@ -28,6 +28,7 @@ connection.connect(function (err) {
 
 inquirer.prompt([
     {
+        name: "menu",
         type: "list",
         message: "Choose a menu option",
         choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"],
