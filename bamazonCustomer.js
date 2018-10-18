@@ -41,16 +41,26 @@ function start() {
             type: "input",
             name: "units",
             message: "How many units would you like to buy?"
+        }, {
+            type: "checkbox",
+            name: "checkout",
+            message: "Proceed to checkout?",
+            choices: ["Yes", "No"]
         }
-
     ]).then(function (user) {
         //connect to the sql database
         connection.query(
-        //insert the name of the product into the database
+            //insert the name of the product into the database
             "INSERT INTO auctions SET ?",
             {
                 foodItem: user.food,
                 foodAmount: user.units
+            }
+        )
+            //Update the food unit amount after the node calls
+            connection.query(
+            "INSERT units SET ? WHERE ?", {
+            bamazon_products: stock_quantity
             }
         )
 
@@ -72,15 +82,21 @@ function start() {
             }
 
         }
-
-
-
+        //insert the name of the product next to the amount 
         if (user.units === 0) {
             console.log("\n==============================================\n");
             console.log("You want " + user.units + user.id);
             console.log("\n==============================================\n");
         }
 
+        //if the user wants to proceed to checkout
+        if (user.checkout === choices[0]) {
+
+            console.log("You bought " + user.units + user.id);
+            start();
+        } else if (user.checkout === choices[1]) {
+            start();
+        }
 
     });
 
