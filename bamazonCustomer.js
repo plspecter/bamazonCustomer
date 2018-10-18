@@ -22,7 +22,9 @@ var connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
-    connect.end();
+    connection.end();
+    //run the program after the connection is secured
+    start();
 });
 
 //starts with this prompt
@@ -34,17 +36,25 @@ function start() {
             type: "input",
             name: "id",
             message: "What product would you like to buy?"
-        }]).then(function (user) {
-            //insert the name of the product into the database
-            connection.query(
-                
-                "INSERT INTO auctions SET ?",
-                {
+
+        }, {
+            type: "input",
+            name: "units",
+            message: "How many units would you like to buy?"
+        }
+
+    ]).then(function (user) {
+        //connect to the sql database
+        connection.query(
+        //insert the name of the product into the database
+            "INSERT INTO auctions SET ?",
+            {
                 foodItem: user.food,
                 foodAmount: user.units
-                }
-            )
+            }
+        )
 
+        function foodArray() {
             if (user.id === "") {
                 //get the string that the user input into the terminal
                 var foodNameArray = [];
@@ -61,15 +71,9 @@ function start() {
                 console.log("Insufficient quality!")
             }
 
-        });
-
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "units",
-            message: "How many units would you like to buy?"
         }
-    ]).then(function (user) {
+
+
 
         if (user.units === 0) {
             console.log("\n==============================================\n");
@@ -81,4 +85,6 @@ function start() {
     });
 
 }
+
+
 
