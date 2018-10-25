@@ -20,7 +20,7 @@ var connection = mysql.createConnection({
 
 //connect to mysql database and server
 connection.connect(function (err) {
-    if (err) throw err;
+    // if (err) throw err;
     console.log("connected as id " + connection.threadId);
     connection.end();
     //run the program after the connection is secured
